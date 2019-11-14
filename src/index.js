@@ -7,7 +7,7 @@ import * as serviceWorker from "./serviceWorker";
 import { AuthContext } from "./context/auth";
 
 ReactDOM.render(
-  <AuthContext.Provider value={true}>
+  <AuthContext.Provider value={false}>
     <Router>
       <App />
     </Router>
