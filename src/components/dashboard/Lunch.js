@@ -7,22 +7,50 @@ import { Link } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 import Checkbox from "@material-ui/core/Checkbox";
 
+let today = new Date(),
+  date =
+    today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+
+const initialState = {
+  count: "",
+  countError: null,
+  date: date
+};
+
 export class Lunch extends Component {
   constructor() {
     super();
-
-    let today = new Date(),
-      date =
-        today.getFullYear() +
-        "-" +
-        (today.getMonth() + 1) +
-        "-" +
-        today.getDate();
-
-    this.state = {
-      date: date
-    };
+    this.state = initialState;
   }
+
+  handleChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  };
+
+  validate = () => {
+    let countError = null;
+    if (!this.state.count) {
+      countError = true;
+    }
+    if (countError) {
+      this.setState({ countError });
+      return false;
+    }
+    return true;
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
+    this.setState(initialState);
+    this.validate();
+    // if (isValid) {
+    //   console.log(this.state);
+    //   this.setState(initialState);
+    // }
+  };
+
   render() {
     const { classes } = this.props;
     return (
@@ -36,14 +64,23 @@ export class Lunch extends Component {
               <p>{this.state.date}</p>
             </Grid>
             <Grid item xs={12}>
-              <form className={classes.container} noValidate autoComplete="off">
+              <form
+                onSubmit={this.handleSubmit}
+                className={classes.container}
+                noValidate
+                autoComplete="off"
+              >
                 <TextField
-                  required
+                  error={this.state.countError}
                   id="outlined-basic"
+                  onChange={this.handleChange}
+                  value={this.state.count}
                   className={classes.textField}
                   label="Enter Count"
                   margin="normal"
                   variant="outlined"
+                  name="count"
+                  type="number"
                 />
                 <Checkbox
                   //   onChange={handleChange("checkedB")}
@@ -62,6 +99,7 @@ export class Lunch extends Component {
                     background: "#2848ff",
                     textDecoration: "none"
                   }}
+                  type="submit"
                   variant="contained"
                   color="primary"
                   className={classes.button}

@@ -8,7 +8,42 @@ import TextField from "@material-ui/core/TextField";
 import logo from "../../images/logo.png";
 import { withStyles } from "@material-ui/styles";
 
+const initialState = {
+  password: "",
+  passwordError: null
+};
+
 class Login extends Component {
+  state = initialState;
+
+  handleChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  };
+
+  validate = () => {
+    let passwordError = "";
+    if (!this.state.password) {
+      passwordError = true;
+    }
+    if (passwordError) {
+      this.setState({ passwordError });
+      return false;
+    }
+    return true;
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
+    this.setState(initialState);
+    this.validate();
+    // if (isValid) {
+    //   console.log(this.state);
+    //   this.setState(initialState);
+    // }
+  };
+
   render() {
     const { classes } = this.props;
     return (
@@ -18,16 +53,24 @@ class Login extends Component {
             <Grid container justify="center" alignItems="center">
               <img src={logo} alt="Logo" className={classes.logo} />
             </Grid>
-            <form className={classes.container} Validate autoComplete="off">
+            <form
+              onSubmit={this.handleSubmit}
+              className={classes.container}
+              noValidate
+              autoComplete="off"
+            >
               <div>
                 <TextField
-                  required
+                  error = {this.state.passwordError}
                   id="outlined-basic"
                   className={classes.textField}
                   label="Enter PIN"
                   margin="normal"
                   variant="outlined"
                   type="password"
+                  name="password"
+                  onChange={this.handleChange}
+                  value={this.state.password}
                   InputLabelProps={{
                     classes: {
                       root: classes.label,
@@ -47,6 +90,7 @@ class Login extends Component {
                 variant="contained"
                 color="primary"
                 className={classes.button}
+                type="submit"
               >
                 Enter
               </Button>
@@ -63,6 +107,10 @@ Login.propTypes = {
 };
 
 const styles = theme => ({
+  errorMessage: {
+    color: "red"
+  },
+
   card: {
     minWidth: 275,
     marginTop: "25%",
