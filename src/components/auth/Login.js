@@ -17,9 +17,13 @@ class Login extends Component {
   state = initialState;
 
   handleChange = e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
+    const re = /^[0-9\b]+$/;
+    // this.setState({
+    //   [e.target.name]: e.target.value
+    // });
+    if (e.target.value === "" || re.test(e.target.value)) {
+      this.setState({ [e.target.name]: e.target.value });
+    }
   };
 
   validate = () => {
@@ -61,7 +65,7 @@ class Login extends Component {
             >
               <div>
                 <TextField
-                  error = {this.state.passwordError}
+                  error={this.state.passwordError}
                   id="outlined-basic"
                   className={classes.textField}
                   label="Enter PIN"
@@ -131,14 +135,19 @@ const styles = theme => ({
   textField: {
     // marginLeft: theme.spacing(1),
     // marginRight: theme.spacing(1),
-    width: "90%"
+    width: "90%",
+    marginBottom: 30,
   },
   button: {
     // margin: theme.spacing(1),
     width: "90%",
-    background: "#5677fc",
+    background: "#42a5f5",
     color: "white",
-    fontWeight: "bold"
+    fontWeight: "bold",
+    height: 50,
+    "&:hover": {
+      background: "#5677fc",
+    }
   },
   logo: {
     width: "130px",
@@ -148,13 +157,13 @@ const styles = theme => ({
   },
   label: {
     "&$focused": {
-      color: "#5677fc"
+      color: "#42a5f5"
     }
   },
   focused: {},
   outlinedInput: {
     "&$focused $notchedOutline": {
-      border: "2px solid #5677fc"
+      border: "2px solid #42a5f5"
     }
   },
   notchedOutline: {}

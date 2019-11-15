@@ -6,6 +6,7 @@ import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 import Checkbox from "@material-ui/core/Checkbox";
+import clsx from "clsx";
 
 let today = new Date(),
   date =
@@ -24,9 +25,10 @@ export class Lunch extends Component {
   }
 
   handleChange = e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
+    const re = /^[0-9\b]+$/;
+    if (e.target.value === "" || re.test(e.target.value)) {
+      this.setState({ [e.target.name]: e.target.value });
+    }
   };
 
   validate = () => {
@@ -80,12 +82,26 @@ export class Lunch extends Component {
                   margin="normal"
                   variant="outlined"
                   name="count"
-                  type="number"
+                  InputLabelProps={{
+                    classes: {
+                      root: classes.label,
+                      focused: classes.focused
+                    }
+                  }}
+                  InputProps={{
+                    classes: {
+                      root: classes.outlinedInput,
+                      focused: classes.focused,
+                      notchedOutline: classes.notchedOutline
+                    }
+                  }}
                 />
                 <Checkbox
                   //   onChange={handleChange("checkedB")}
                   value="checkedB"
-                  color="primary"
+                  style={{
+                    color: "#42a5f5"
+                  }}
                   inputProps={{
                     "aria-label": "secondary checkbox"
                   }}
@@ -96,7 +112,7 @@ export class Lunch extends Component {
                     marginTop: "20px",
                     fontWeight: "bold",
                     fontSize: "16px",
-                    background: "#2848ff",
+                    background: "#42a5f5",
                     textDecoration: "none"
                   }}
                   type="submit"
@@ -111,10 +127,10 @@ export class Lunch extends Component {
             <Grid item xs={6}>
               <Link className={classes.link} to="/login">
                 <Button
-                  variant="contained"
+                  variant="outlined"
                   style={{
-                    color: "white",
-                    background: "#ffbd03",
+                    color: "#42a5f5",
+                    // background: "#ffbd03",
                     fontWeight: "bold",
                     fontSize: "16px"
                   }}
@@ -127,14 +143,17 @@ export class Lunch extends Component {
             <Grid item xs={6}>
               <Link className={classes.link} to="/">
                 <Button
-                  variant="contained"
+                  variant="outlined"
                   style={{
-                    color: "white",
-                    background: "#ffbd03",
+                    color: "#42a5f5",
+                    // background: "#ffbd03",
                     fontWeight: "bold",
-                    fontSize: "16px"
+                    fontSize: "16px",
+                    "&:hover": {
+                      background: "green"
+                    }
                   }}
-                  className={classes.button}
+                  className={clsx(classes.button, classes.cancelButton)}
                 >
                   Cancel
                 </Button>
@@ -148,6 +167,11 @@ export class Lunch extends Component {
 }
 
 const styles = theme => ({
+  cancelButton: {
+    "&:hover": {
+      background: "#fce4ec !important",
+    }
+  },
   card: {
     padding: 20,
     display: "flex",
@@ -179,14 +203,30 @@ const styles = theme => ({
   },
   button: {
     width: "100%",
-    height: "60px"
+    height: "60px",
+    border: "1px solid #42a5f5",
+    "&:hover": {
+      background: "#e3f2fd"
+    }
   },
   input: {
     display: "none"
   },
   root: {
     flexGrow: 1
-  }
+  },
+  label: {
+    "&$focused": {
+      color: "#42a5f5"
+    }
+  },
+  focused: {},
+  outlinedInput: {
+    "&$focused $notchedOutline": {
+      border: "2px solid #42a5f5"
+    }
+  },
+  notchedOutline: {}
 });
 
 export default withStyles(styles)(Lunch);

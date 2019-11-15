@@ -40,7 +40,7 @@ export class Dashboard extends Component {
                   style={{
                     fontWeight: "bold",
                     fontSize: "16px",
-                    background: "#2848ff",
+                    background: "#42a5f5",
                     textDecoration: "none"
                   }}
                   variant="contained"
@@ -59,25 +59,25 @@ export class Dashboard extends Component {
             </Grid>
             <Grid item xs={12}>
               <Button
+                variant="outlined"
                 style={{
-                  color: "white",
-                  background: "#ffbd03",
+                  color: "#42a5f5",
+                  // background: "#ffbd03",
                   fontWeight: "bold",
                   fontSize: "16px"
                 }}
-                variant="contained"
                 className={classes.button}
               >
                 Clock Out
               </Button>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12}>
               <Link className={classes.link} to="/login">
                 <Button
-                  variant="contained"
+                  variant="outlined"
                   style={{
-                    color: "white",
-                    background: "#ffbd03",
+                    color: "#42a5f5",
+                    // background: "#ffbd03",
                     fontWeight: "bold",
                     fontSize: "16px"
                   }}
@@ -86,21 +86,6 @@ export class Dashboard extends Component {
                   Lock
                 </Button>
               </Link>
-            </Grid>
-            <Grid item xs={6}>
-              <Button
-                disabled
-                variant="contained"
-                style={{
-                  color: "white",
-                  background: "#ffbd03",
-                  fontWeight: "bold",
-                  fontSize: "16px"
-                }}
-                className={classes.button}
-              >
-                Cancel
-              </Button>
             </Grid>
           </Grid>
         </div>
@@ -138,7 +123,11 @@ const styles = theme => ({
   },
   button: {
     width: "100%",
-    height: "60px"
+    height: "60px",
+    border: "1px solid #42a5f5",
+    "&:hover": {
+      background: "#e3f2fd"
+    }
   },
   input: {
     display: "none"
