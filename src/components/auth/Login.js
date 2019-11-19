@@ -1,172 +1,52 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
-import TextField from "@material-ui/core/TextField";
-import logo from "../../images/logo.png";
-import { withStyles } from "@material-ui/styles";
+import { connect } from "react-redux";
+import LoginScreen from "../../screens/auth/LoginScreen";
+import { LocalDb, AccountAPI } from "../../api";
+import {
+  loginRequestMade,
+  loginSuccess,
+  loginFailure
+} from "../../actions/authAction";
+// import Helpers from "../helper/Helper"; only for validation
 
-const initialState = {
-  password: "",
-  passwordError: null
+const mapStateToProps = state => {
+  return {
+    state
+  };
 };
+const mapDispatchToProps = dispatch => {
+  return {
+    onLogin: (userName, password, props) => {
+      /* if (Helpers.checkValidityEmailPhone(userName)) {
+        if (Helpers.checkValidityPassword(password)) { */
+      dispatch(loginRequestMade(true));
 
-class Login extends Component {
-  state = initialState;
-
-  handleChange = e => {
-    const re = /^[0-9\b]+$/;
-    // this.setState({
-    //   [e.target.name]: e.target.value
-    // });
-    if (e.target.value === "" || re.test(e.target.value)) {
-      this.setState({ [e.target.name]: e.target.value });
+      AccountAPI.onLogin(userName, password, (response, error) => {
+        if (response) {
+          LocalDb.setSession(response, err => {
+            if (err === false) {
+              AccountAPI.resetToken();
+              dispatch(loginSuccess(response));
+              props.history.replace("/");
+            } else {
+              console.log("setting session error");
+              dispatch(loginFailure(error));
+            }
+          });
+        } else {
+          dispatch(loginFailure(error.msg));
+          console.log("Error" + error.msg);
+        }
+      });
+      /*    } else {
+          dispatch(loginFailure("Invalid password format."));
+        }
+      } else {
+        dispatch(loginFailure("Invalid email address format."));
+      } */
     }
   };
-
-  validate = () => {
-    let passwordError = "";
-    if (!this.state.password) {
-      passwordError = true;
-    }
-    if (passwordError) {
-      this.setState({ passwordError });
-      return false;
-    }
-    return true;
-  };
-
-  handleSubmit = e => {
-    e.preventDefault();
-    this.setState(initialState);
-    this.validate();
-    // if (isValid) {
-    //   console.log(this.state);
-    //   this.setState(initialState);
-    // }
-  };
-
-  render() {
-    const { classes } = this.props;
-    return (
-      <React.Fragment>
-        <Card className={classes.card}>
-          <CardContent>
-            <Grid container justify="center" alignItems="center">
-              <img src={logo} alt="Logo" className={classes.logo} />
-            </Grid>
-            <form
-              onSubmit={this.handleSubmit}
-              className={classes.container}
-              noValidate
-              autoComplete="off"
-            >
-              <div>
-                <TextField
-                  error={this.state.passwordError}
-                  id="outlined-basic"
-                  className={classes.textField}
-                  label="Enter PIN"
-                  margin="normal"
-                  variant="outlined"
-                  type="password"
-                  name="password"
-                  onChange={this.handleChange}
-                  value={this.state.password}
-                  InputLabelProps={{
-                    classes: {
-                      root: classes.label,
-                      focused: classes.focused
-                    }
-                  }}
-                  InputProps={{
-                    classes: {
-                      root: classes.outlinedInput,
-                      focused: classes.focused,
-                      notchedOutline: classes.notchedOutline
-                    }
-                  }}
-                />
-              </div>
-              <Button
-                variant="contained"
-                color="primary"
-                className={classes.button}
-                type="submit"
-              >
-                Enter
-              </Button>
-            </form>
-          </CardContent>
-        </Card>
-      </React.Fragment>
-    );
-  }
-}
-
-Login.propTypes = {
-  classes: PropTypes.object.isRequired
 };
-
-const styles = theme => ({
-  errorMessage: {
-    color: "red"
-  },
-
-  card: {
-    minWidth: 275,
-    marginTop: "25%",
-    textAlign: "center",
-    maxWidth: "400px",
-    margin: "auto",
-    paddingTop: "20px",
-    boxShadow: "10px 10px 20px -15px"
-  },
-  bullet: {
-    display: "inline-block",
-    margin: "0 2px",
-    transform: "scale(0.8)"
-  },
-  title: {
-    fontSize: 14
-  },
-  textField: {
-    // marginLeft: theme.spacing(1),
-    // marginRight: theme.spacing(1),
-    width: "90%",
-    marginBottom: 30,
-  },
-  button: {
-    // margin: theme.spacing(1),
-    width: "90%",
-    background: "#42a5f5",
-    color: "white",
-    fontWeight: "bold",
-    height: 50,
-    "&:hover": {
-      background: "#5677fc",
-    }
-  },
-  logo: {
-    width: "130px",
-    marginBottom: "20px",
-    boxShadow: "0px 8px 15px -4px",
-    borderRadius: "50%"
-  },
-  label: {
-    "&$focused": {
-      color: "#42a5f5"
-    }
-  },
-  focused: {},
-  outlinedInput: {
-    "&$focused $notchedOutline": {
-      border: "2px solid #42a5f5"
-    }
-  },
-  notchedOutline: {}
-});
-
-export default withStyles(styles)(Login);
+export const LoginContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LoginScreen);

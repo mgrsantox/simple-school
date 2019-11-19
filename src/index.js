@@ -2,16 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-import { BrowserRouter as Router } from "react-router-dom";
+import { Provider } from "react-redux";
 import * as serviceWorker from "./serviceWorker";
-import { AuthContext } from "./context/auth";
+import store from "./store/store";
 
 ReactDOM.render(
-  <AuthContext.Provider value={true}>
-    <Router>
-      <App />
-    </Router>
-  </AuthContext.Provider>,
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById("root")
 );
 

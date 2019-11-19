@@ -43,7 +43,7 @@ export class Default extends Component {
                   variant="contained"
                   style={{
                     color: "white",
-                    background: "#ffbd03",
+                    background: "#42a5f5",
                     fontWeight: "bold",
                     fontSize: "16px"
                   }}
@@ -59,7 +59,7 @@ export class Default extends Component {
                   variant="contained"
                   style={{
                     color: "white",
-                    background: "#ffbd03",
+                    background: "#42a5f5",
                     fontWeight: "bold",
                     fontSize: "16px"
                   }}
