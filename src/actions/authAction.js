@@ -4,10 +4,11 @@ import {
   LOGIN_FAILURE
 } from "../constants/Type";
 
-export const loginRequestMade = bool => {
+export const loginRequestMade = (bool, x) => {
   return {
     type: LOGIN_REQUEST_MADE,
-    bool
+    bool,
+    x
   };
 };
 export const loginSuccess = userData => {

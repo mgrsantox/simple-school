@@ -11,7 +11,7 @@ class AccountAPI extends API {
       body: bodyParams
     })
       .then(response => {
-        console.log("parsing response");
+        console.log("parsing response", response);
         this.processResponse(response, callback);
         
       })
@@ -23,7 +23,7 @@ class AccountAPI extends API {
 
   logout = callback => {
     return fetch(APIEndPoints.LOGOUT, {
-      method: "GET",
+      method: "DELETE",
       headers: this.authHeaders
     })
       .then(response => {

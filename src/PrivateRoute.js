@@ -3,6 +3,7 @@ import { Route, Redirect } from "react-router-dom";
 import LocalDb from "./api/LocalStorage";
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
+  
   <Route
     {...rest}
     render={props =>

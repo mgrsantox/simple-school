@@ -24,17 +24,18 @@ const mapDispatchToProps = dispatch => {
         if (response) {
           LocalDb.setSession(response, err => {
             if (err === false) {
+              console.log("Response from Login", response)
               AccountAPI.resetToken();
               dispatch(loginSuccess(response));
               props.history.replace("/");
             } else {
-              console.log("setting session error");
+              // console.log("setting session error");
               dispatch(loginFailure(error));
             }
           });
         } else {
           dispatch(loginFailure(error.msg));
-          console.log("Error" + error.msg);
+          console.log("Error", error.msg);
         }
       });
       /*    } else {
