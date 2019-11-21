@@ -1,3 +1,4 @@
-import AccountAPI from './AccountAPI';
-import LocalDb from './LocalStorage';
-export {AccountAPI, LocalDb};
+import AccountAPI from "./AccountAPI";
+import LocalDb from "./LocalStorage";
+import GroupAPI from "./GroupAPI";
+export { AccountAPI, LocalDb, GroupAPI };

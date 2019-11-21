@@ -1,6 +1,11 @@
 import { connect } from "react-redux";
 import { LocalDb, AccountAPI } from "../../api";
 import DashboardScreen from "../../screens/dashboard/DashboardScreen";
+import { GroupAPI } from "../../api";
+import {
+  groupFetchSucess,
+  groupFetchFailure
+} from "../../actions/dashboardAction";
 
 const mapStateToProps = state => {
   return {
@@ -14,13 +19,24 @@ const mapDispatchToProps = dispatch => {
         console.log("Response message", response);
         if (response) {
           AccountAPI.logout((response, error) => {
-            console.log("Response message", response);
+            // console.log("Response message", response);
             if (response) {
               LocalDb.removeSession();
               props.history.replace("/login");
-              console.log("Session Removed");
+              // console.log("Session Removed");
             }
           });
+        }
+      });
+    },
+    group: (employeeId, props) => {
+      GroupAPI.groupFetch(employeeId, (response, error) => {
+        if (response) {
+          dispatch(groupFetchSucess(response));
+          // console.log(response);
+        } else {
+          dispatch(groupFetchFailure(error));
+          console.log(error);
         }
       });
     }

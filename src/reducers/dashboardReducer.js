@@ -1,22 +1,33 @@
-/* import { CHECKLOGIN } from "../actions/authAction";
+import {
+  GROUP_REQUEST,
+  GROUP_REQUEST_SUCCESS,
+  GROUP_REQUEST_FAILURE
+} from "../constants/Type";
 
-const initialState = {
-  isLoggedIn: false,
-  loginCheck: false,
-  user: null
-};
+let initialState = { group: "" };
 
-function login(state = initialState, action) {
+const group = (state = initialState, action) => {
   switch (action.type) {
-    case CHECKLOGIN:
-      return Object.assign({}, state, {
-        isLoggedIn: action.response.isLoggedIn,
-        user: action.response.user,
-        loginCheck: true
-      });
+    case GROUP_REQUEST:
+      return {
+        ...state
+      };
+    //chcek action type for success  return{ ...state,action.  s  }
+
+    case GROUP_REQUEST_SUCCESS:
+      return {
+        ...state,
+        group: action.groupInfo.groups
+      };
+
+    case GROUP_REQUEST_FAILURE:
+      return {
+        ...state
+      };
+
     default:
       return state;
   }
-}
+};
 
-export default login; */
+export default group;

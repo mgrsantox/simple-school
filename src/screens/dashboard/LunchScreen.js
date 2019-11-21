@@ -5,7 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
-import Checkbox from "@material-ui/core/Checkbox";
+//import Checkbox from "@material-ui/core/Checkbox";
 import clsx from "clsx";
 
 let today = new Date(),
@@ -19,9 +19,10 @@ const initialState = {
 };
 
 export class LunchScreen extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = initialState;
+    // console.log("state",this.props)
   }
 
   handleChange = e => {
@@ -51,6 +52,7 @@ export class LunchScreen extends Component {
     e.preventDefault();
     this.setState(initialState);
     this.validate();
+    // this.props.group(this.props.state.auth.user.employeeId, this.props)
     // if (isValid) {
     //   console.log(this.state);
     //   this.setState(initialState);
@@ -100,7 +102,7 @@ export class LunchScreen extends Component {
                     }
                   }}
                 />
-                <Checkbox
+               {/*  <Checkbox
                   //   onChange={handleChange("checkedB")}
                   value="checkedB"
                   style={{
@@ -110,7 +112,7 @@ export class LunchScreen extends Component {
                     "aria-label": "secondary checkbox"
                   }}
                 />
-                <span>Count as Sub</span>
+                <span>Count as Sub</span> */}
                 <Button
                   style={{
                     marginTop: "20px",

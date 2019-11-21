@@ -26,7 +26,7 @@ export default class API {
   }
   processResponse(response, callback) {
     response.json().then(parsedResponse => {
-      console.log("Parse Response " , parsedResponse);
+      // console.log("Parse Response " , parsedResponse);
       if (parsedResponse.error) {
         const error = {
           error: true,
@@ -35,7 +35,7 @@ export default class API {
         };
         callback(null, error);
       } else {
-        console.log("sucess", parsedResponse);
+        // console.log("sucess", parsedResponse);
         callback(parsedResponse, null);
       }
     });

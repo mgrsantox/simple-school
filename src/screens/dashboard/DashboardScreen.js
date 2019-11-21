@@ -7,21 +7,28 @@ import { Link } from "react-router-dom";
 import LocalDB from "../../api/LocalStorage";
 
 export class DashboardScreen extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
-    let today = new Date(),
+    const today = new Date(),
       date =
         today.getFullYear() +
         "-" +
         (today.getMonth() + 1) +
         "-" +
         today.getDate();
+    const employeeInfo = LocalDB.getSessions().employeeLoginResponse.employee;
 
     this.state = {
-      date: date
+      date: date,
+      employee: employeeInfo
     };
   }
+
+  componentDidMount() {
+    this.props.group(this.state.employee.employeeId, this.props);
+  }
+  // this.props.group(this.props.state.auth.user.employeeId, this.props);
 
   logouthandle = e => {
     this.props.logout(this.props);
@@ -29,14 +36,21 @@ export class DashboardScreen extends Component {
 
   render() {
     const { classes } = this.props;
-    const employeeInfo = LocalDB.getSessions().employeeLoginResponse.employee;
-    // console.log("data from storage ", employeeInfo);
+    console.log("State", this.props);
+    console.log("Dashboard", this.props.state.dashboard.group);
+    const groupInfo = this.props.state.dashboard.group
+
+
     return (
       <Card className={classes.card}>
         <div className={classes.root}>
           <Grid container spacing={3}>
             <Grid item xs={6} className={classes.userInfo}>
-              <p>{employeeInfo.firstName + " " + employeeInfo.lastName}</p>
+              <p>
+                {this.state.employee.firstName +
+                  " " +
+                  this.state.employee.lastName}
+              </p>
             </Grid>
             <Grid item xs={6} className={classes.date}>
               <p>{this.state.date}</p>
