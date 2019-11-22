@@ -37,9 +37,6 @@ export class DashboardScreen extends Component {
   render() {
     const { classes } = this.props;
     console.log("State", this.props);
-    console.log("Dashboard", this.props.state.dashboard.group);
-    const groupInfo = this.props.state.dashboard.group
-
 
     return (
       <Card className={classes.card}>
@@ -56,22 +53,32 @@ export class DashboardScreen extends Component {
               <p>{this.state.date}</p>
             </Grid>
             <Grid item xs={12}>
-              <Link className={classes.link} to="/lunch">
-                <Button
-                  style={{
-                    fontWeight: "bold",
-                    fontSize: "16px",
-                    background: "#42a5f5",
-                    textDecoration: "none"
-                  }}
-                  variant="contained"
-                  color="primary"
-                  className={classes.button}
-                >
-                  Lunch
-                </Button>
-              </Link>
+              {this.props.state.dashboard.group.length > 0 &&
+                this.props.state.dashboard.group.map((item, key) => {
+                  return (
+                    <Link
+                      className={classes.link}
+                      key={key}
+                      to={`/lunch/${item.groupId}`}
+                    >
+                      <Button
+                        style={{
+                          fontWeight: "bold",
+                          fontSize: "16px",
+                          background: "#42a5f5",
+                          textDecoration: "none"
+                        }}
+                        variant="contained"
+                        color="primary"
+                        className={classes.button}
+                      >
+                        {item.name}
+                      </Button>
+                    </Link>
+                  );
+                })}
             </Grid>
+
             <Grid item xs={12} style={{ textAlign: "center" }}>
               <p>
                 Last CheckIn <br />
