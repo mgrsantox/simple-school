@@ -3,7 +3,7 @@ import { withStyles } from "@material-ui/styles";
 import Card from "@material-ui/core/Card";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import LocalDB from "../../api/LocalStorage";
 
 export class DashboardScreen extends Component {
@@ -37,6 +37,8 @@ export class DashboardScreen extends Component {
   render() {
     const { classes } = this.props;
     console.log("State", this.props);
+    // const grouplist = this.props.state.dashboard.length;
+    console.log("Group number", this.props.state.dashboard.group.length)
 
     return (
       <Card className={classes.card}>
@@ -53,13 +55,13 @@ export class DashboardScreen extends Component {
               <p>{this.state.date}</p>
             </Grid>
             <Grid item xs={12}>
-              {this.props.state.dashboard.group.length > 0 &&
+              {/* {grouplist ? (
                 this.props.state.dashboard.group.map((item, key) => {
                   return (
                     <Link
                       className={classes.link}
                       key={key}
-                      to={`/lunch/${item.groupId}`}
+                      to={`/lunch/${match.params.groupId}`}
                     >
                       <Button
                         style={{
@@ -76,6 +78,53 @@ export class DashboardScreen extends Component {
                       </Button>
                     </Link>
                   );
+                })
+              ) : (
+                <span>
+                  <Button
+                    disabled
+                    style={{
+                      fontWeight: "bold",
+                      fontSize: "16px",
+                      background: "#42a5f5",
+                      textDecoration: "none"
+                    }}
+                    variant="contained"
+                    color="primary"
+                    className={classes.button}
+                  >
+                    Lunch Group Name
+                  </Button>
+                  <p style={{ color: "red" }}>No any data available!</p>
+                </span>
+              )} */}
+              {this.props.state.dashboard.group.length > 0 &&
+                this.props.state.dashboard.group.map((item, key) => {
+                  return (
+                    <Button
+                      key={item.groupId}
+                      style={{
+                        fontWeight: "bold",
+                        fontSize: "16px",
+                        background: "#42a5f5",
+                        textDecoration: "none",
+                        marginBottom: 10
+                      }}
+                      variant="contained"
+                      color="primary"
+                      className={classes.button}
+                      onClick={e => {
+                        e.preventDefault();
+
+                        this.props.history.push({
+                          pathname: "/lunch/" + item.groupId,
+                          dataToPass: { item }
+                        });
+                      }}
+                    >
+                      {item.name}
+                    </Button>
+                  );
                 })}
             </Grid>
 
@@ -90,7 +139,6 @@ export class DashboardScreen extends Component {
                 variant="outlined"
                 style={{
                   color: "#42a5f5",
-                  // background: "#ffbd03",
                   fontWeight: "bold",
                   fontSize: "16px"
                 }}

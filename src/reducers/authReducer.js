@@ -24,8 +24,8 @@ const initialState = user
       return {
         ...state,
         loggedIn: true,
-        user: action.userData.employee,
-        token: action.userData.token,
+        user: action.userData.employeeLoginResponse.employee,
+        token: action.userData.employeeLoginResponse.token,
         loading: false
       };
     case LOGIN_FAILURE:

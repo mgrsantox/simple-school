@@ -44,8 +44,6 @@ export class LoginScreen extends Component {
     this.setState(initialState);
     this.validate();
     this.props.onLogin(this.state.userName, this.state.password, this.props);
-    // console.log("Username:" + this.state.userName);
-    // console.log("Password:" + this.state.password);
   };
 
   render() {

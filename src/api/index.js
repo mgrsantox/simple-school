@@ -1,4 +1,5 @@
 import AccountAPI from "./AccountAPI";
 import LocalDb from "./LocalStorage";
 import GroupAPI from "./GroupAPI";
-export { AccountAPI, LocalDb, GroupAPI };
+import LunchCountAPI from "./LunchCountAPI";
+export { AccountAPI, LocalDb, GroupAPI, LunchCountAPI };

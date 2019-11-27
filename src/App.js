@@ -10,13 +10,14 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 
 export class App extends Component {
   render() {
+    // const match = this.props
     return (
       <React.Fragment>
         <Router>
           <CssBaseline />
           <Switch>
             <PrivateRoute exact path="/" component={DashboardContainer} />
-            <PrivateRoute path="/lunch" component={LunchContainer} />
+            <PrivateRoute exact path="/lunch/:groupId" component={LunchContainer} />
             <Route path="/login" component={LoginContainer} />
             <Route path="" component={DefaultContainer} />
           </Switch>
