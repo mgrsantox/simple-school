@@ -4,7 +4,7 @@ import {
   GROUP_REQUEST_FAILURE
 } from "../constants/Type";
 
-let initialState = { group: "" };
+let initialState = { group: "" , error: ""};
 
 const group = (state = initialState, action) => {
   switch (action.type) {
@@ -22,7 +22,8 @@ const group = (state = initialState, action) => {
 
     case GROUP_REQUEST_FAILURE:
       return {
-        ...state
+        ...state,
+        error: action.error
       };
 
     default:

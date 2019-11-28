@@ -38,7 +38,7 @@ export class DashboardScreen extends Component {
     const { classes } = this.props;
     console.log("State", this.props);
     // const grouplist = this.props.state.dashboard.length;
-    console.log("Group number", this.props.state.dashboard.group.length)
+    // console.log("Group number", this.props.state.dashboard.group.length);
 
     return (
       <Card className={classes.card}>
@@ -128,14 +128,14 @@ export class DashboardScreen extends Component {
                 })}
             </Grid>
 
-            <Grid item xs={12} style={{ textAlign: "center" }}>
+            {/*  <Grid item xs={12} style={{ textAlign: "center" }}>
               <p>
                 Last CheckIn <br />
                 Extra text goes here
               </p>
-            </Grid>
+            </Grid> */}
             <Grid item xs={12}>
-              <Button
+              {/* <Button
                 variant="outlined"
                 style={{
                   color: "#42a5f5",
@@ -145,7 +145,7 @@ export class DashboardScreen extends Component {
                 className={classes.button}
               >
                 Clock Out
-              </Button>
+              </Button> */}
             </Grid>
             <Grid item xs={12}>
               <Button

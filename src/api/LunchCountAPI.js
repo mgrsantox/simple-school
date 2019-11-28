@@ -5,7 +5,7 @@ class LunchCountAPI extends API {
   lunchCountPatch = (groupId, EmployeeId, count, callback) => {
     const LUNCH_COUNT_PATCH = APIEndPoint.LUNCH_COUNT_PATCH;
     const body = {"groupId" : groupId , "employeeId" : EmployeeId , "count":count}
-    console.log("body", JSON.stringify(body))
+    // console.log("body", JSON.stringify(body))
     fetch(LUNCH_COUNT_PATCH, {
       method: "POST",
       headers: this.authHeaders,

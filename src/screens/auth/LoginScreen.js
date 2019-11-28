@@ -62,6 +62,9 @@ export class LoginScreen extends Component {
               autoComplete="off"
             >
               <div>
+                <span className="error-message">
+                  {this.props.state.auth.localError}
+                </span>
                 <TextField
                   error={this.state.passwordError}
                   id="outlined-basic"

@@ -4,7 +4,7 @@ import {
   LUNCH_COUNT_UPDATE_FAILURE
 } from "../constants/Type";
 
-let initialState = { lunchdata: "", employeeData: {} };
+let initialState = { lunchdata: "", error: "" };
 
 const lunchCount = (state = initialState, action) => {
   switch (action.type) {
@@ -21,8 +21,10 @@ const lunchCount = (state = initialState, action) => {
       };
 
     case LUNCH_COUNT_UPDATE_FAILURE:
+        
       return {
-        ...state
+        ...state,
+        error: action.error,
       };
 
     default:

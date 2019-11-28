@@ -21,7 +21,6 @@ export class LunchScreen extends Component {
   constructor(props) {
     super(props);
     this.state = initialState;
-    // console.log("state",this.props)
   }
 
   handleChange = e => {
@@ -68,8 +67,6 @@ export class LunchScreen extends Component {
 
   render() {
     const { classes } = this.props;
-    console.log("Props form Lunch Screen", this.props);
-    console.log("state", this.props.state);
 
     return (
       <Card className={classes.card}>
@@ -82,6 +79,9 @@ export class LunchScreen extends Component {
               <p>{this.state.date}</p>
             </Grid>
             <Grid item xs={12}>
+              <span className="error-message">
+                {this.props.state.lunch.error}
+              </span>
               <form
                 onSubmit={this.handleSubmit}
                 className={classes.container}

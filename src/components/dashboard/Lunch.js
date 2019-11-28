@@ -35,8 +35,8 @@ const mapDispatchToProps = dispatch => {
             console.log("Update Lunch Response", response);
             props.history.replace("/");
           } else {
-            dispatch(lunchCountUpdateFailure(response));
-            console.log("Update lunch error", error);
+            dispatch(lunchCountUpdateFailure(error.msg));
+            // console.log("Update lunch error", error.msg);
           }
         }
       );
