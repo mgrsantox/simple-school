@@ -32,11 +32,10 @@ const mapDispatchToProps = dispatch => {
         (response, error) => {
           if (response) {
             dispatch(lunchCountUpdateSuccess(response));
-            console.log("Update Lunch Response", response);
-            props.history.replace("/");
+            // console.log("Lunch Updated Successfully", response);
           } else {
             dispatch(lunchCountUpdateFailure(error.msg));
-            // console.log("Update lunch error", error.msg);
+            console.log("Update lunch error", error.msg);
           }
         }
       );

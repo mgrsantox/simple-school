@@ -11,7 +11,8 @@ import { withStyles } from "@material-ui/styles";
 const initialState = {
   userName: "test4@gmail.com",
   password: "",
-  passwordError: null
+  passwordError: null,
+  errorMessage: ""
 };
 
 export class LoginScreen extends Component {
@@ -23,7 +24,7 @@ export class LoginScreen extends Component {
   handleChange = e => {
     const re = /^[0-9\b]+$/;
     if (e.target.value === "" || re.test(e.target.value)) {
-      this.setState({ [e.target.name]: e.target.value });
+      this.setState({ [e.target.name]: e.target.value, errorMessage: "" });
     }
   };
 
@@ -36,6 +37,9 @@ export class LoginScreen extends Component {
       this.setState({ passwordError });
       return false;
     }
+    this.setState({
+      errorMessage: "Invalid PIN"
+    });
     return true;
   };
 
@@ -62,9 +66,7 @@ export class LoginScreen extends Component {
               autoComplete="off"
             >
               <div>
-                <span className="error-message">
-                  {this.props.state.auth.localError}
-                </span>
+                <span className="error-message">{this.state.errorMessage}</span>
                 <TextField
                   error={this.state.passwordError}
                   id="outlined-basic"

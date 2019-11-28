@@ -12,7 +12,7 @@ class LunchCountAPI extends API {
       body: JSON.stringify(body)
     })
       .then(response => {
-        console.log("Lunch Count Patch Response", response);
+        // console.log("Lunch Count Patch Response", response);
         this.processResponse(response, callback);
       })
       .catch(error => {
